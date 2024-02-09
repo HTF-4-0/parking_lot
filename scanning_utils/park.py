@@ -43,7 +43,7 @@ def scan_park():
                 data += item[1]
             data = data.replace("'", "")
             print(data)
-            db.park_car(db.get_empty_slot(), data)
+            db.park_car(data)
             break
         
 
@@ -128,7 +128,7 @@ def image_park(image_path):
         data += item[1]
     data = data.replace("'", "")
     print(data)
-    db.park_car(db.get_empty_slot(), data)
+    db.park_car(data)
 
 def image_unpark(image_path):
     frame = cv2.imread(image_path)
@@ -162,3 +162,6 @@ def image_unpark(image_path):
     data = data.replace("'", "")
     print(data)
     db.unpark_car(data)
+
+
+# image_unpark("test-nameplate/nameplate2.jpg")

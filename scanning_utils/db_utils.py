@@ -1,5 +1,5 @@
 import sqlite3
-conn = sqlite3.connect('cars.db')
+conn = sqlite3.connect('cars.sqlite')
 cursor = conn.cursor()
 
 # Define the priority order of the parking spot
@@ -36,8 +36,7 @@ def park_car(car):
     pid = get_empty_slot()
     if pid is None:
         return
-    cursor.execute(f"SELECT car
-                    FROM parking WHERE pid = {pid}")
+    cursor.execute(f"SELECT car FROM parking WHERE pid = {pid}")
     row = cursor.fetchone()
     if row[0]:
         print("Parking slot already occupied")
@@ -85,4 +84,3 @@ def get_empty_slot():
             return pid  # Return the first empty slot according to priority order
     print("No empty slot")
     return None  # Return None if no empty slot found
-
