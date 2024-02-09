@@ -1,0 +1,4 @@
+test-nameplate/
+__pycache__/
+*.db
+
