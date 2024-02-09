@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import SignIn from './pages/Signin';
+import SignUp from './pages/Signup';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/login' element={loggedIn ? <Home /> : <Login onLogin={setLoggedIn} />} />
-          <Route path='/signup' element={loggedIn ? <Home /> : <SignIn onSignIn={setLoggedIn} />} />
+          <Route path='/signup' element={loggedIn ? <Home /> : <SignUp onSignUp={setLoggedIn} />} />
           <Route path='/' element={loggedIn ? <Home /> : <Login onLogin={setLoggedIn} />}/>
           <Route path='*' element={<NotFound/>} />
         </Routes>
