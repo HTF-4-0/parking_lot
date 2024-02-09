@@ -4,9 +4,7 @@ import numpy as np
 import imutils
 import easyocr
 
-# Initialize webcam
 cap = cv2.VideoCapture(0)
-
 while True:
     ret, frame = cap.read()
     cv2.imshow("Image Capture", frame)

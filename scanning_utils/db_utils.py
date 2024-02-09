@@ -2,6 +2,9 @@ import sqlite3
 conn = sqlite3.connect('cars.db')
 cursor = conn.cursor()
 
+# Define the priority order of the parking spot
+priority_order = [5, 2, 3, 1, 4]
+# to create a basic table to store the parking slots
 def create_db():
     cursor.execute(
     '''CREATE TABLE IF NOT EXISTS parking (
@@ -20,7 +23,6 @@ def create_db():
     """)
     conn.commit()
 
-
 def view_parking():
     cursor.execute("SELECT * FROM parking")
     rows = cursor.fetchall()
@@ -29,9 +31,13 @@ def view_parking():
     for row in rows:
         print(row[0], row[1] if row[1] else "empty")
 
-def park_car(pid,car):
+def park_car(car):
     # check if a car is already parked
-    cursor.execute(f"SELECT car FROM parking WHERE pid = {pid}")
+    pid = get_empty_slot()
+    if pid is None:
+        return
+    cursor.execute(f"SELECT car
+                    FROM parking WHERE pid = {pid}")
     row = cursor.fetchone()
     if row[0]:
         print("Parking slot already occupied")
@@ -68,9 +74,15 @@ def get_car(pid):
 
 # get a empty parking slot
 def get_empty_slot():
-    cursor.execute("SELECT pid FROM parking WHERE car IS NULL")
-    row = cursor.fetchone()
-    if not row:
-        print("No empty slot")
-        return
-    return row[0]
+    # Define the priority order for each mall 
+
+    # Iterate through the priority order
+    for pid in priority_order:
+        cursor.execute(f"SELECT car FROM parking WHERE pid = {pid}")
+        row = cursor.fetchone()
+        # Check if the slot is empty
+        if row[0] is None:
+            return pid  # Return the first empty slot according to priority order
+    print("No empty slot")
+    return None  # Return None if no empty slot found
+
