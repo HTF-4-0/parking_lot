@@ -1,0 +1,70 @@
+.login-background {
+    background-image: url('../assests/Parking-Lot.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+    width: 300px;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #556D8F;
+}
+
+.login-container label {
+    display: block;
+    margin: 10px 0;
+    color: #556D8F;
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.05rem;
+}
+
+.login-container button {
+    background-color: #556D8F;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    border: 2.5px solid #556D8F;
+    font-size: 1.05rem;
+}
+
+.login-container p {
+    margin: 15px 0;
+    color: #555;
+}
+
+.login-container p a {
+    color: #556D8F;
+    font-weight: bold;
+}
+
+.login-container button:hover {
+    background-color: transparent;
+    border: 2.5px solid #556D8F;
+    color: #556D8F;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
