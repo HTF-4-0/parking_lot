@@ -19,19 +19,19 @@ const SignIn = ({ onSignIn }) => {
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <label>Name:
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+            <input type="text" value={name} placeholder='Name' onChange={(e) => setName(e.target.value)} required />
           </label>
           <label>Username:
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input type="text" value={username} placeholder='Username' onChange={(e) => setUsername(e.target.value)} required />
           </label>
           <label>Phone Number:
-            <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+            <input type="tel" value={phoneNumber} placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} required />
           </label>
           <label>Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="email" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
           </label>
           <label>Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" value={password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
           </label>
           <button type="submit">Sign Up</button>
         </form>
