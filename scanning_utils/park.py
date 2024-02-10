@@ -167,3 +167,5 @@ def image_unpark(image_path):
 # image_park("test/car-3.jpg")
 # image_unpark("test/car-3.jpg")
 # db.view_parking()
+
+scan_unpark()
