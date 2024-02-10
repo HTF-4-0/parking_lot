@@ -44,8 +44,8 @@ const Navbar = () => {
     <div className="navbar">
       <div className="logo">Your Logo</div>
       <div className="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Car Numbers</a>
+        <a href="/">Home</a>
+        <a href="Number Plates">Car Number Plates</a>
         <a href="#">About</a>
         <a href="#">Services</a>
         <a href="#">Contact</a>

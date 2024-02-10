@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -11,14 +13,22 @@ const Login = ({ onLogin }) => {
         try {
             const isLoginSuccessful = await checkLogin(username, password);
             if (isLoginSuccessful) {
-                // Login successful
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert variant="filled" severity="success">
+                        This is a filled success Alert.
+                    </Alert>
+                </Stack>
                 onLogin(true);
             } else {
-                // Login failed
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert variant="filled" severity="info">
+                        This is a filled info Alert.
+                    </Alert>
+                </Stack>
                 console.error('Invalid email or password');
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.log('Error:', error);
         }
     };
 

@@ -7,11 +7,6 @@ const SignIn = ({ onSignIn }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onSignIn(true)
-  // };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -25,17 +20,18 @@ const SignIn = ({ onSignIn }) => {
           body: JSON.stringify({
             name,
             username,
-            phoneNumber,
+            phone: phoneNumber,
             email,
             password,
           }),
         });
-  
+
+        console.log(response) 
         if (response.ok) {
-          // User successfully signed up
-          onSignIn(true); // Call onSignIn function
+          console.log("signedup");
+          onSignIn(true); 
         } else {
-          // Error signing up user
+        
           console.error('Error signing up user');
         }
         console.log(SignIn)
