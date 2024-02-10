@@ -1,5 +1,5 @@
 import sqlite3
-conn = sqlite3.connect('cars.sqlite')
+conn = sqlite3.connect('parking.sqlite')
 cursor = conn.cursor()
 
 # Define the priority order of the parking spot
@@ -32,16 +32,16 @@ def view_parking():
         print(row[0], row[1] if row[1] else "empty")
 
 def park_car(car):
-    # check if a car is already parked
     pid = get_empty_slot()
     if pid is None:
+        print("No empty slot")
         return
-    cursor.execute(f"SELECT car FROM parking WHERE pid = {pid}")
+    # check if car is already parked
+    cursor.execute(f"SELECT pid FROM parking WHERE car = '{car}'")
     row = cursor.fetchone()
-    if row[0]:
-        print("Parking slot already occupied")
+    if row:
+        print(f"{car} is already parked at {row[0]}")
         return
-    
     cursor.execute(f"""
         UPDATE parking
         SET car="{car}"

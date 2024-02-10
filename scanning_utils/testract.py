@@ -1,13 +1,11 @@
-import db_utils as db
 import cv2
-from matplotlib import pyplot as plt
 import numpy as np
+import pytesseract
+from matplotlib import pyplot as plt
 import imutils
-import easyocr
+import db_utils as db
 
-# Initialize webcam
-
-def scan_park():
+def scan_plate():
     cap = cv2.VideoCapture(0)
     while True:
         ret, frame = cap.read()
@@ -33,29 +31,19 @@ def scan_park():
             (x1, y1) = (np.min(x), np.min(y))
             (x2, y2) = (np.max(x), np.max(y))
             cropped_image = gray[x1:x2+1, y1:y2+1]
-            # plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-            # plt.show()
-            reader = easyocr.Reader(['en'])
-            result = reader.readtext(cropped_image)
-            data = ""
-            for item in result:
-                # data += item[1].replace(" ", "")
-                data += item[1]
+
+            # Use Tesseract OCR to extract text
+            data = pytesseract.image_to_string(cropped_image, lang='eng')
+
             data = data.replace("'", "")
             print(data)
             db.park_car(data)
             break
-        
-
-
-    # Release resources
     cap.release()
     cv2.destroyAllWindows()
 
-def scan_unpark():
-    # Initialize webcam
+def unpark_plate():
     cap = cv2.VideoCapture(0)
-
     while True:
         ret, frame = cap.read()
         cv2.imshow("Image Capture", frame)
@@ -80,24 +68,18 @@ def scan_unpark():
             (x1, y1) = (np.min(x), np.min(y))
             (x2, y2) = (np.max(x), np.max(y))
             cropped_image = gray[x1:x2+1, y1:y2+1]
-            # plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-            # plt.show()
-            reader = easyocr.Reader(['en'])
-            result = reader.readtext(cropped_image)
-            data = ""
-            for item in result:
-                # data += item[1].replace(" ", "")
-                data += item[1]
+
+            # Use Tesseract OCR to extract text
+            data = pytesseract.image_to_string(cropped_image, lang='eng')
+
             data = data.replace("'", "")
             print(data)
             db.unpark_car(data)
             break
-
-    # Release resources
     cap.release()
     cv2.destroyAllWindows()
 
-def image_park(image_path):
+def image_scan_park(image_path):
     frame = cv2.imread(image_path)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     bfilter = cv2.bilateralFilter(gray, 11, 17, 17)
@@ -118,19 +100,15 @@ def image_park(image_path):
     (x1, y1) = (np.min(x), np.min(y))
     (x2, y2) = (np.max(x), np.max(y))
     cropped_image = gray[x1:x2+1, y1:y2+1]
-    # plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-    # plt.show()
-    reader = easyocr.Reader(['en'])
-    result = reader.readtext(cropped_image)
-    data = ""
-    for item in result:
-        # data += item[1].replace(" ", "")
-        data += item[1]
+
+    # Use Tesseract OCR to extract text
+    data = pytesseract.image_to_string(cropped_image, lang='eng')
+
     data = data.replace("'", "")
     print(data)
     db.park_car(data)
 
-def image_unpark(image_path):
+def image_scan_unpark(image_path):
     frame = cv2.imread(image_path)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     bfilter = cv2.bilateralFilter(gray, 11, 17, 17)
@@ -151,19 +129,13 @@ def image_unpark(image_path):
     (x1, y1) = (np.min(x), np.min(y))
     (x2, y2) = (np.max(x), np.max(y))
     cropped_image = gray[x1:x2+1, y1:y2+1]
-    # plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-    # plt.show()
-    reader = easyocr.Reader(['en'])
-    result = reader.readtext(cropped_image)
-    data = ""
-    for item in result:
-        # data += item[1].replace(" ", "")
-        data += item[1]
+
+    # Use Tesseract OCR to extract text
+    data = pytesseract.image_to_string(cropped_image, lang='eng')
+
     data = data.replace("'", "")
     print(data)
     db.unpark_car(data)
 
-
-# image_park("test/car-3.jpg")
-# image_unpark("test/car-3.jpg")
-# db.view_parking()
+image_scan_park("test-nameplate/nameplate2.jpg")
+db.view_parking()
