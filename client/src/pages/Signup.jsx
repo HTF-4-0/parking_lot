@@ -8,10 +8,41 @@ const SignIn = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSignIn(true)
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onSignIn(true)
+  // };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('http://localhost:3360/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            username,
+            phoneNumber,
+            email,
+            password,
+          }),
+        });
+  
+        if (response.ok) {
+          // User successfully signed up
+          onSignIn(true); // Call onSignIn function
+        } else {
+          // Error signing up user
+          console.error('Error signing up user');
+        }
+        console.log(SignIn)
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
   return (
     <div className="login-background">

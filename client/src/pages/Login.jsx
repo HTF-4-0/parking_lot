@@ -2,12 +2,44 @@ import React, { useState } from 'react';
 import '../css/Login.css';
 
 const Login = ({ onLogin }) => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onLogin(true);
+
+        try {
+            const isLoginSuccessful = await checkLogin(username, password);
+            if (isLoginSuccessful) {
+                // Login successful
+                onLogin(true);
+            } else {
+                // Login failed
+                console.error('Invalid email or password');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const checkLogin = async (username, password) => {
+        try {
+            const response = await fetch('http://localhost:3360/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
+
+            return response.ok;
+        } catch (error) {
+            console.error('Error:', error);
+            return false;
+        }
     };
 
     return (
@@ -16,10 +48,10 @@ const Login = ({ onLogin }) => {
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <label>Email:
-                        <input type="email" value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} required />
+                        <input type="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
                     </label>
                     <label>Password:
-                        <input type="password" value={password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </label>
                     <button type="submit">Login</button>
                 </form>
