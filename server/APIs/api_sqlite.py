@@ -8,7 +8,7 @@ from functools import wraps
 from jwt_token import generate_token
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,origins=['http://localhost:3000'])
 
 secret_key = open('secret.key').read()
 
