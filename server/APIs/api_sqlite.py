@@ -93,7 +93,17 @@ def protected(data):
     print(request.headers)
     return jsonify({'message': 'This is a protected endpoint', 'data': data}), 200
 
+@app.route('/history', methods=['GET'])
+def history():
+    cursor.execute("SELECT * FROM park_history")
+    history = cursor.fetchall()
+    return jsonify(history)
 
+@app.route('/parking', methods=['GET'])
+def parking_status():
+    cursor.execute("SELECT * FROM parking")
+    status = cursor.fetchall()
+    return jsonify(status)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=3360, debug=True)

@@ -122,8 +122,9 @@ def protected(data):
     return jsonify({'message': 'This is a protected endpoint', 'data': data}), 200
 
 
-if __name__ == '__main__':
-    app.run(host='localhost', port=3360, debug=True)
+
+# if __name__ == '__main__':
+#     app.run(host='localhost', port=3360, debug=True)
 
 # if __name__ == '__main__':
     # app.run(debug=True)
