@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
-import '../css/Login.css'; 
+import '../css/Login.css';
+import { useNavigate } from 'react-router-dom';
 
-const SignIn = ({ onSignIn }) => {
+const SignUp = ({ onSignUp }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await fetch('http://localhost:3360/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            username,
-            phone: phoneNumber,
-            email,
-            password,
-          }),
-        });
+  const navigate = useNavigate();
 
-        console.log(response) 
-        if (response.ok) {
-          console.log("signedup");
-          onSignIn(true); 
-        } else {
-        
-          console.error('Error signing up user');
-        }
-        console.log(SignIn)
-      } catch (error) {
-        console.error('Error:', error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3360/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          phone: phoneNumber,
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("signed up");
+        onSignUp(true);
+        navigate('/');
+      } else {
+        console.error('Error signing up user');
       }
-    };
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div className="login-background">
@@ -62,10 +62,12 @@ const SignIn = ({ onSignIn }) => {
           </label>
           <button type="submit">Sign Up</button>
         </form>
-        <p>Already have an account? <a href="/login">Login</a></p>
+        <p>
+          Already have an account? <a href="/login">Login</a>
+        </p>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

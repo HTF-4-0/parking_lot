@@ -21,13 +21,15 @@ body {
     text-decoration: none;
 }
 
+.logo img {
+    width: 2.2rem;
+}
+
 .nav-links {
     display: flex;
     justify-content: center;
-    /* Center the navigation links */
     align-items: center;
     flex-grow: 1;
-    /* Allows the links to take up available space and push account to the right */
 }
 
 .nav-links a {

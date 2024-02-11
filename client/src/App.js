@@ -11,15 +11,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path='/login' element={loggedIn ? <Home /> : <Login onLogin={setLoggedIn} />} />
           <Route path='/signup' element={loggedIn ? <Home /> : <SignUp onSignUp={setLoggedIn} />} />
           <Route path='/' element={loggedIn ? <Home /> : <Login onLogin={setLoggedIn} />}/>
           <Route path='*' element={<NotFound/>} />
         </Routes>
-      </BrowserRouter> */}
-      <Home/>
+      </BrowserRouter>
     </div>
   );
 }

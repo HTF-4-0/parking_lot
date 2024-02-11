@@ -1,5 +1,5 @@
 import sqlite3
-conn = sqlite3.connect('cars.sqlite')
+conn = sqlite3.connect('../server/apis/parkease.sqlite')
 cursor = conn.cursor()
 
 # Define the priority order of the parking spot
@@ -48,6 +48,18 @@ def park_car(car):
         WHERE pid = {pid};
     """)
     conn.commit()
+    # write into the database car in time
+    # CREATE TABLE IF NOT EXISTS park_history (
+    #     car TEXT,
+    #     in_time TEXT,
+    #     out_time TEXT
+    # );
+    cursor.execute(f"""
+        INSERT INTO park_history (car, in_time)
+        VALUES ('{car}', datetime('now'));
+    """)
+    conn.commit()
+    
 
 def unpark_car(car):
     # check if the car is parked
@@ -61,6 +73,12 @@ def unpark_car(car):
         SET car = NULL
         WHERE car = "{car}";
     ''')
+    conn.commit()
+    cursor.execute(f"""
+        UPDATE park_history
+        SET out_time = datetime('now')
+        WHERE car = '{car}' AND out_time IS NULL;
+    """)
     conn.commit()
 
 def get_car(pid):

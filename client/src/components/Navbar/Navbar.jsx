@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import logo from '../../assests/logo.jpg'
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -42,7 +43,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="logo">Your Logo</div>
+      <div className="logo">
+        <img src={logo} alt="" />
+      </div>
       <div className="nav-links">
         <a href="/">Home</a>
         <a href="Number Plates">Car Number Plates</a>
